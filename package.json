@@ -5,7 +5,8 @@
   "description": "Cache dependencies and build outputs to S3",
   "main": "dist/restore/index.js",
   "scripts": {
-    "build": "tsc && ncc build -o dist/restore src/restore.ts && ncc build -o dist/save src/save.ts",
+    "build": "tsc",
+    "release": "yarn build && ncc build -o dist/restore src/restore.ts && ncc build -o dist/save src/save.ts",
     "lint": "eslint **/*.ts --cache",
     "format": "prettier --write **/*.ts",
     "format-check": "prettier --check **/*.ts"
@@ -30,12 +31,14 @@
     "tar": "^6.2.0"
   },
   "devDependencies": {
+    "@swc/cli": "^0.1.63",
     "@types/jest": "^29.5.11",
     "@types/nock": "^11.1.0",
     "@types/node": "^20.10.8",
+    "@types/tar": "^6.1.10",
     "@typescript-eslint/eslint-plugin": "^6.18.1",
     "@typescript-eslint/parser": "^6.18.1",
-    "@zeit/ncc": "^0.20.5",
+    "@vercel/ncc": "^0.38.1",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.29.1",
