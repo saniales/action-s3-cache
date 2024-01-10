@@ -1,5 +1,5 @@
-name: 'cache to S3'
-description: 'Cache dependencies and build outputs to S3'
+name: 'action-s3-cache'
+description: 'Cache dependencies and build outputs to AWS S3'
 inputs:
   path:
     description: 'A list of files, directories, and wildcard patterns to cache and restore'
@@ -31,5 +31,5 @@ runs:
   post: 'dist/save/index.js'
   post-if: 'success()'
 branding:
-  icon: 'archive'
-  color: 'gray-dark'
+  icon: 'box'
+  color: 'green'

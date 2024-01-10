@@ -1,19 +1,19 @@
 {
-  "name": "cache-to-s3",
-  "version": "1.0.0",
+  "name": "action-s3-cache",
+  "version": "2.0.0",
   "private": true,
   "description": "Cache dependencies and build outputs to S3",
-  "main": "dist/restore/index.js",
   "scripts": {
     "build": "tsc",
-    "release": "yarn build && ncc build -o dist/restore src/restore.ts && ncc build -o dist/save src/save.ts",
+    "release": "ncc build -o dist/restore src/restore.ts && ncc build -o dist/save src/save.ts",
+    "test": "echo \"TODO: Add tests\"",
     "lint": "eslint **/*.ts --cache",
     "format": "prettier --write **/*.ts",
     "format-check": "prettier --check **/*.ts"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Idein/action-s3-cache"
+    "url": "git+https://github.com/saniales/action-s3-cache"
   },
   "keywords": [
     "actions",
@@ -31,7 +31,6 @@
     "tar": "^6.2.0"
   },
   "devDependencies": {
-    "@swc/cli": "^0.1.63",
     "@types/jest": "^29.5.11",
     "@types/nock": "^11.1.0",
     "@types/node": "^20.10.8",

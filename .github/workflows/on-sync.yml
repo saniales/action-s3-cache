@@ -1,0 +1,24 @@
+name: Publish new version 
+
+on:
+  pull_request:
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.release.tag_name }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "yarn"
+      - name: Install dependencies
+        run: yarn install
+      - name: Transpile and type-check
+        run: yarn build
+      - name: Run tests
+        run: yarn test
