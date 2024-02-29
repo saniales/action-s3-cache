@@ -62,22 +62,21 @@ async function run(): Promise<void> {
                     required: true
                 })
             });
-            s3.upload(
-                {
-                    Body: fs.createReadStream(fileName),
-                    Bucket: core.getInput(Inputs.AWSS3Bucket, {
-                        required: true
-                    }),
-                    Key: fileName
-                },
-                (err, data) => {
-                    if (err) {
-                        core.info(`Error: ${err}`);
-                    } else {
-                        core.info(`Uploaded: ${data.Location}`);
-                    }
+            // S3 ManagedUpload with callbacks are not supported in AWS SDK for JavaScript (v3).
+            // Please convert to 'await client.upload(params, options).promise()', and re-run aws-sdk-js-codemod.
+            s3.upload({
+                Body: fs.createReadStream(fileName),
+                Bucket: core.getInput(Inputs.AWSS3Bucket, {
+                    required: true
+                }),
+                Key: fileName
+            }, (err, data) => {
+                if (err) {
+                    core.info(`Error: ${err}`);
+                } else {
+                    core.info(`Uploaded: ${data.Location}`);
                 }
-            );
+            });
         } catch (error: any) {
             utils.logWarning(error.message);
         }

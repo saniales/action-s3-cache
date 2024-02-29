@@ -1,5 +1,5 @@
 import * as core from "@actions/core";
-import AWS from "aws-sdk";
+import { S3 } from "@aws-sdk/client-s3";
 import fs from "graceful-fs";
 import tar from "tar";
 
@@ -30,13 +30,17 @@ async function run(): Promise<void> {
         const restoreKeys = utils.getInputAsArray(Inputs.RestoreKeys);
 
         try {
-            const s3 = new AWS.S3({
-                accessKeyId: core.getInput(Inputs.AWSAccessKeyId, {
-                    required: true
-                }),
-                secretAccessKey: core.getInput(Inputs.AWSSecretAccessKey, {
-                    required: true
-                }),
+            const s3 = new S3({
+                credentials: {
+                    accessKeyId: core.getInput(Inputs.AWSAccessKeyId, {
+                        required: true
+                    }),
+
+                    secretAccessKey: core.getInput(Inputs.AWSSecretAccessKey, {
+                        required: true
+                    })
+                },
+
                 region: core.getInput(Inputs.AWSRegion, {
                     required: true
                 })
